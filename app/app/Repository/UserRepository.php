@@ -13,16 +13,16 @@ class UserRepository extends BlogUserRepository implements UserRepositoryInterfa
 
     public function register(array $data): UserInterface
     {
-        return User::create($data);
+        return $this->model::create($data);
     }
 
     public function getUserByEmail(string $email): ?UserInterface
     {
-        return User::where('email', $email)->first();
+        return $this->model::where('email', $email)->first();
     }
 
     public function findOrFail(int $id): UserInterface
     {
-        return User::findOrFail($id);
+        return $this->model::findOrFail($id);
     }
 }

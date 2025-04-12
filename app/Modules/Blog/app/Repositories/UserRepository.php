@@ -38,6 +38,6 @@ class UserRepository
 
     public function delete(int $id): void
     {
-        User::destroy($id);
+        $this->model::destroy($id);
     }
 }

@@ -1,32 +1,34 @@
-# docker-base
+# Medium support
 
-This is a PHP Laravel project setup using Docker. It is configured to work with Nginx, PHP-FPM, MariaDB, Redis, and Mailhog for a clean, fast, and efficient development environment. This setup ensures that you have a reproducible, isolated environment for your Laravel application, and all necessary services are containerized.
+This repository is used as support for the medium article : https://medium.com/@PixelKodeKrafter/getting-started-with-laravel-projects-using-docker-my-basic-configuration-eb86d795dfa0
 
 ## Prerequisites
 
 Before getting started, ensure that you have the following installed on your machine:
-•	[Docker](https://www.docker.com/get-started/) 
+•	[Docker](https://www.docker.com/get-started/)
 •	[Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Getting Started
 ### Clone the repository
 
 Clone this repository to your local machine:
-    
-    ```shell
-    git clone git@github.com:mouize/docker-base.git
-    ```
+```shell 
+  git clone git@github.com:mouize/demo-modular-architecture.git
+  ```  
 
-### Set up environment variables
+### Set up environment variables for the docker
 
-Create a `.env` file in the root of the project directory and copy the contents of the `.env.example` file into it. You can modify the values in the `.env` file to suit your needs.
+Create a `.env` file in the **docker folder** and copy the contents of the `.env.example` file into it. You can modify the values in the `.env` file to suit your needs.
 
-### Build the Docker containers
+### Set up environment variables for the Laravel project
 
-Build the Docker containers by running the following command:
+Create a `.env` file in the **app folder** and copy the contents of the `.env.example` file into it. You can modify the values in the `.env` file to suit your needs.
 
-    ```shell
-    make up
-    ```
+### Init the project
 
-After running the command, you should see the Docker containers being built and started. You can access to your application on the port you specified in the `.env` file.
+Run the following command to initialize the project so it will launch your docker & install the laravel project (dependencies, migrations, ...)
+
+```shell 
+make init-project
+```
+

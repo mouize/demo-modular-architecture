@@ -1,0 +1,30 @@
+{
+    "name": "demo-modular-architecture/authentication",
+    "description": "",
+    "authors": [
+        {
+            "name": "Saad Mouizina",
+            "email": "saad.mouizina@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Authentication\\": "app/",
+            "Modules\\Authentication\\Database\\Factories\\": "database/factories/",
+            "Modules\\Authentication\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Authentication\\Tests\\": "tests/"
+        }
+    }
+}

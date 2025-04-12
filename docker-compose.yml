@@ -1,0 +1,89 @@
+services:
+  # Service PHP-FPM
+  app:
+    platform: linux/x86_64
+    build: ./docker/php
+    restart: unless-stopped
+    volumes:
+      - ./app:/app
+    networks:
+      app-network:
+        aliases:
+          - php-fpm-app
+    depends_on:
+      - mariadb
+      - redis
+
+  # Service Nginx
+  nginx:
+    platform: linux/x86_64
+    image: nginx:latest
+    restart: unless-stopped
+    volumes:
+      - ./app:/app
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - app-network
+    ports:
+      - ${NGINX_HTTP_PORT}:80
+      - ${NGINX_HTTPS_PORT}:443
+    depends_on:
+      - app
+
+  # Service MariaDB
+  mariadb:
+    platform: linux/x86_64
+    image: mariadb:latest
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ${APP_SLUG_NAME}
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    networks:
+      - app-network
+    ports:
+      - ${MYSQL_PORT}:3306
+
+  mariadb_testing:
+    platform: linux/x86_64
+    image: mariadb:latest
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ${APP_SLUG_NAME}
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    networks:
+      - app-network
+    ports:
+      - ${MYSQL_PORT_TESTING}:3306
+
+  # Service Redis
+  redis:
+    platform: linux/x86_64
+    image: redis:alpine
+    restart: unless-stopped
+    networks:
+      - app-network
+    ports:
+      - ${REDIS_PORT}:6379
+
+  mailhog:
+    platform: linux/x86_64
+    image: mailhog/mailhog
+    restart: unless-stopped
+    networks:
+      - app-network
+    ports:
+      - ${MAILHOG_PORT}:8025
+      - ${MAILHOG_SMTP_PORT}:1025
+
+# Volumes
+volumes:
+  mariadb-data:
+
+# Réseaux
+networks:
+  app-network:
+    driver: bridge

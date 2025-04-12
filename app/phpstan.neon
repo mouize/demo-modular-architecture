@@ -1,0 +1,12 @@
+includes:
+    - /app/vendor/larastan/larastan/extension.neon
+    - /app/vendor/phpstan/phpstan-mockery/extension.neon
+
+parameters:
+    parallel:
+        maximumNumberOfProcesses: 1
+        minimumNumberOfJobsPerProcess: 1
+    level: 5
+    paths:
+        - app
+        - Modules

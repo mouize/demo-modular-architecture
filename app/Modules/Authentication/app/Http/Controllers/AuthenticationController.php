@@ -20,9 +20,9 @@ class AuthenticationController extends Controller
     public function register(RegisterRequest $request): JsonResponse
     {
         $user = $this->userRepository->register([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'name' => $request->validated('name'),
+            'email' => $request->validated('email'),
+            'password' => Hash::make($request->validated('password')),
         ]);
 
         Event::dispatch(new UserRegistered($user));
@@ -47,9 +47,9 @@ class AuthenticationController extends Controller
 
     public function login(LoginRequest $request): JsonResponse
     {
-        $user = $this->userRepository->getUserByEmail($request->email);
+        $user = $this->userRepository->getUserByEmail($request->validated('email'));
 
-        if (! $user || ! Hash::check($request->password, $user->getPassword())) {
+        if (! $user || ! Hash::check($request->validated('password'), $user->getPassword())) {
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 

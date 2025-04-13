@@ -35,6 +35,6 @@ class CommentController
     {
         $this->repository->delete($id);
 
-        return response()->json(['message' => 'Deleted']);
+        return response()->noContent();
     }
 }

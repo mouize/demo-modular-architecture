@@ -3,7 +3,6 @@
 namespace Modules\Blog\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Modules\Blog\Models\User;
 
 class PostFactory extends Factory
 {
@@ -20,7 +19,6 @@ class PostFactory extends Factory
         return [
             'title' => $this->faker->sentence(),
             'content' => $this->faker->paragraph(),
-            'user_id' => User::factory(),
         ];
     }
 }

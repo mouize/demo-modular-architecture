@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Listeners;
+
 use Modules\Authentication\Events\UserVerified;
 
 class MarkEmailAsVerified

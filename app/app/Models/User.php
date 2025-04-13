@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use App\Mail\CustomVerifyEmail;
+use Database\Factories\UserFactory;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Authentication\Interfaces\UserInterface;
@@ -46,7 +48,7 @@ use Modules\Blog\Models\User as BlogUser;
  */
 class User extends BlogUser implements AuthenticatableContract, UserInterface
 {
-    use Authenticatable, HasApiTokens, MustVerifyEmail, Notifiable;
+    use Authenticatable, HasApiTokens, HasFactory, MustVerifyEmail, Notifiable;
 
     protected $fillable = ['name', 'email', 'password'];
 
@@ -68,5 +70,10 @@ class User extends BlogUser implements AuthenticatableContract, UserInterface
     public function sendEmailVerificationNotification(): void
     {
         $this->notify(new CustomVerifyEmail);
+    }
+
+    protected static function newFactory(): UserFactory
+    {
+        return UserFactory::new();
     }
 }

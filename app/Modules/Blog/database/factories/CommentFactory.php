@@ -3,8 +3,6 @@
 namespace Modules\Blog\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Modules\Blog\Models\Post;
-use Modules\Blog\Models\User;
 
 class CommentFactory extends Factory
 {
@@ -20,8 +18,6 @@ class CommentFactory extends Factory
     {
         return [
             'content' => $this->faker->sentence(),
-            'user_id' => User::factory(),
-            'post_id' => Post::factory(),
         ];
     }
 }

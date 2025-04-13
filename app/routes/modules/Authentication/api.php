@@ -10,3 +10,7 @@ Route::post('login', [AuthenticationController::class, 'login'])
 Route::middleware('signed')
     ->get('/email/verify/{id}/{hash}', [AuthenticationController::class, 'verify'])
     ->name('verification.verify');
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('logout', [AuthenticationController::class, 'logout'])
+        ->name('logout');
+});

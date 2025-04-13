@@ -52,6 +52,11 @@ seeders: ## Seed the database
 tests: ## Run tests
 	docker compose $(dc_conf) $(project_name) exec app bash -c "php artisan test"
 
+PHONY: test-coverage
+test-coverage: ## Run tests coverage
+	docker compose $(dc_conf) $(project_name) exec app bash -c "php -d pcov.enabled=1 -d pcov.directory=./ -d pcov.exclude=./vendor vendor/bin/phpunit --coverage-html public/coverage"
+
+
 .PHONY: php
 php: ## Run a shell on the local php environment
 	docker compose $(dc_conf) $(project_name) exec app bash
